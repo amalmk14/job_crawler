@@ -2,11 +2,12 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from .models import JobPosting, Profile
 
+
 @require_http_methods(["GET"])
 def get_profiles(request):
-    designation = request.GET.get('designation')
-    location = request.GET.get('location')
-    company = request.GET.get('company')
+    designation = request.GET.get('designation', '')  
+    location = request.GET.get('location', '')        
+    company = request.GET.get('company', '')         
     
     profiles = Profile.objects.filter(
         title__icontains=designation,
@@ -27,6 +28,7 @@ def get_profiles(request):
             for p in profiles
         ]
     })
+
 
 @require_http_methods(["GET"])
 def get_jobs(request):
