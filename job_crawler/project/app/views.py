@@ -32,9 +32,9 @@ def get_profiles(request):
 
 @require_http_methods(["GET"])
 def get_jobs(request):
-    title = request.GET.get('title')
-    location = request.GET.get('location')
-    experience = request.GET.get('experience')
+    title = request.GET.get('title', '')  
+    location = request.GET.get('location', '')  
+    experience = request.GET.get('experience', '') 
     
     jobs = JobPosting.objects.filter(
         title__icontains=title,
@@ -54,6 +54,7 @@ def get_jobs(request):
             for j in jobs
         ]
     })
+
 
 def calculate_match_score(profile, designation, location, company):
     score = 0
